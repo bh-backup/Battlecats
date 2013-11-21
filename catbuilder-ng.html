@@ -1,7 +1,8 @@
 <!DOCTYPE html>
-<html ng-app>
+<html ng-app="app">
 <head>
     <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="http://vitalets.github.io/angular-xeditable/dist/css/xeditable.css">
     <style>
         #center-column{
             margin-top:50px;
@@ -20,6 +21,9 @@
         .builder>div.row{
             padding:8px;
         }
+        .builder .name-row div{
+            height:1.2em;
+        }
         .die-selector-btn-group button{
             letter-spacing:1em;
         }
@@ -32,10 +36,15 @@
             padding:8px;
         }
     </style>
-    <script src="http://code.jquery.com/jquery-2.0.3.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.1/angular.min.js"></script>
+    <script src="//code.jquery.com/jquery-2.0.3.min.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.0.1/angular.min.js"></script>
     <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.2/js/bootstrap.min.js"></script>
+    <script src="http://vitalets.github.io/angular-xeditable/dist/js/xeditable.min.js"></script>
     <script>
+        var app = angular.module("app", ["xeditable"]);
+        app.run(function(editableOptions) {
+          editableOptions.theme = 'bs3'; // bootstrap3 theme. Can be also 'bs2', 'default'
+        });
         function BuilderCtrl($scope){
             $scope.name = "Zorellia of Zimzillia";
             $scope.imageURL = "http://25.media.tumblr.com/tumblr_lwqkncsWIO1r3dq2ro1_1280.jpg";
@@ -43,6 +52,20 @@
             $scope.availableAttackDice = ['123456', '111666', '333444'];
             $scope.defenseDie = 111666;
             $scope.availableDefenseDice = ['123456', '111666', '333444'];
+
+            $scope.updateAttackDie = function($event){
+                var die = $($event.target).text();
+                if ($.inArray(die, $scope.availableAttackDice) >= 0){
+                    $scope.attackDie = die;
+                }
+            }
+
+            $scope.updateDefenseDie = function($event){
+                var die = $($event.target).text();
+                if ($.inArray(die, $scope.availableDefenseDice) >= 0){
+                    $scope.defenseDie = die;
+                }
+            }
         }
     </script>
 </head>
@@ -68,9 +91,9 @@
     </div>
     <div id="center-column" class="container text-center">
         <div class="builder h3" ng-controller="BuilderCtrl">
-            <div class="row">
+            <div class="row name-row">
                 <div class="col-xs-12 h2 text-left">
-                    {{name}}
+                    <a href="#" editable-text="name">{{name}}</a>
                 </div>
             </div>
             <div class="row">
@@ -86,7 +109,7 @@
                             <div class="btn-group die-selector-btn-group">
                                 <button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown">{{attackDie}}<span class="caret"></span></button>
                                 <ul class="dropdown-menu" role="menu">
-                                  <li ng-repeat="availableAttackDie in availableAttackDice"><a href="#">{{availableAttackDie}}</a></li>
+                                  <li ng-repeat="availableAttackDie in availableAttackDice"><a href="#" ng-click="updateAttackDie($event)">{{availableAttackDie}}</a></li>
                                 </ul>
                             </div>
                         </div>
@@ -107,7 +130,7 @@
                             <div class="btn-group die-selector-btn-group">
                                 <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">{{defenseDie}}<span class="caret"></span></button>
                                 <ul class="dropdown-menu" role="menu">
-                                  <li ng-repeat="availableDefenseDie in availableDefenseDice"><a href="#">{{availableDefenseDie}}</a></li>
+                                  <li ng-repeat="availableDefenseDie in availableDefenseDice"><a href="#" ng-click="updateDefenseDie($event)">{{availableDefenseDie}}</a></li>
                                 </ul>
                             </div>
                         </div>
