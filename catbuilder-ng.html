@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html ng-app>
+<head>
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css">
+    <style>
+        #center-column{
+            margin-top:50px;
+        }
+        .heading{
+            font-size:60px;
+            font-weight:bold;
+        }
+        .builder{
+            max-width:600px;
+            margin:0 auto;
+        }
+        .builder-image{
+            max-width:100%; max-height:100%;
+        }
+        .builder>div.row{
+            padding:8px;
+        }
+        .die-selector-btn-group button{
+            letter-spacing:1em;
+        }
+        .die-selector-btn-group .dropdown-menu li a
+        {
+            letter-spacing:1em;
+            padding: 3px 12px;
+        }
+        .stat-table>div{
+            padding:8px;
+        }
+    </style>
+    <script src="http://code.jquery.com/jquery-2.0.3.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.1/angular.min.js"></script>
+    <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.2/js/bootstrap.min.js"></script>
+    <script>
+        function BuilderCtrl($scope){
+            $scope.name = "Zorellia of Zimzillia";
+            $scope.imageURL = "http://25.media.tumblr.com/tumblr_lwqkncsWIO1r3dq2ro1_1280.jpg";
+            $scope.attackDie = 123456;
+            $scope.availableAttackDice = ['123456', '111666', '333444'];
+            $scope.defenseDie = 111666;
+            $scope.availableDefenseDice = ['123456', '111666', '333444'];
+        }
+    </script>
+</head>
+<body>
+    <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+        <div class="container">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="#">Battlecats</a>
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#main-nav">
+                  <span class="sr-only">Toggle navigation</span>
+                  <span class="icon-bar"></span>
+                  <span class="icon-bar"></span>
+                  <span class="icon-bar"></span>
+                </button>
+            </div>
+            <nav id="main-nav" class="navbar-collapse collapse">
+                <!-- Brand and toggle get grouped for better mobile display -->
+                <ul class="nav navbar-nav">
+                    <li class="active"><a href="#">Builder</a></li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+    <div id="center-column" class="container text-center">
+        <div class="builder h3" ng-controller="BuilderCtrl">
+            <div class="row">
+                <div class="col-xs-12 h2 text-left">
+                    {{name}}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12 col-sm-6">
+                    <img class="builder-image" src="{{imageURL}}"></img>
+                </div>
+                <div class="col-xs-12 col-sm-6 stat-table">
+                    <div class="row">
+                        <div class="col-xs-12 col-sm-6">
+                            Attack
+                        </div>
+                        <div class="col-xs-12 col-sm-6">
+                            <div class="btn-group die-selector-btn-group">
+                                <button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown">{{attackDie}}<span class="caret"></span></button>
+                                <ul class="dropdown-menu" role="menu">
+                                  <li ng-repeat="availableAttackDie in availableAttackDice"><a href="#">{{availableAttackDie}}</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-12 col-sm-6">
+                            Type
+                        </div>
+                        <div class="col-xs-12 col-sm-6">
+                            Thunderfist
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-12 col-sm-6">
+                            Defense
+                        </div>
+                        <div class="col-xs-12 col-sm-6">
+                            <div class="btn-group die-selector-btn-group">
+                                <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">{{defenseDie}}<span class="caret"></span></button>
+                                <ul class="dropdown-menu" role="menu">
+                                  <li ng-repeat="availableDefenseDie in availableDefenseDice"><a href="#">{{availableDefenseDie}}</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
