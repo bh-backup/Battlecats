@@ -1,10 +1,9 @@
-var express = require('express');
+var express = require('express'),
+    cats = require('./routes/cats');
  
 var app = express();
  
-app.get('/cats', function(req, res) {
-    res.send([{name:'cat1'}, {name:'cat1'}]);
-});
+app.get('/cats', cats.findAll);
 app.get('/cats/:id', function(req, res) {
     res.send({id:req.params.id, name: "The Name", description: "description"});
 });
