@@ -41,10 +41,14 @@
     <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.2/js/bootstrap.min.js"></script>
     <script src="http://vitalets.github.io/angular-xeditable/dist/js/xeditable.min.js"></script>
     <script>
-        var app = angular.module("app", ["xeditable"]);
+        var app = angular.module("app", ["xeditable", "ngResource"]);
         app.run(function(editableOptions) {
           editableOptions.theme = 'bs3'; // bootstrap3 theme. Can be also 'bs2', 'default'
         });
+        var BattleCat = $resource('http://127.0.0.1:3000/cats/:id/',
+         {id:'@id'}, {
+
+         });
         function BuilderCtrl($scope){
             $scope.name = "Zorellia of Zimzillia";
             $scope.imageURL = "http://25.media.tumblr.com/tumblr_lwqkncsWIO1r3dq2ro1_1280.jpg";
